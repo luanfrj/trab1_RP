@@ -1,13 +1,15 @@
-
+clear all
+close all
+clc
 % metodo 'naive' :D
 
 % trabalho 1 de reconhecimento de padroes
 
 % le o arquivo csv
-cstrdataread('X.csv',';','normal');
+ret = cstrdataread('X.csv',';','normal');
 
 % gera o vetor X
-X = ans.X
+X = ret.X;
 
 % centraliza
 Xc = X-repmat(mean(X),size(X,1),1);
@@ -22,4 +24,30 @@ sigma = cov(Xc);
 Y = Xc * phi;
 
 % plota os pontos 2D
-scatter(Y(:,17),Y(:,18));
+hold on
+%scatter(Y(:300,17),Y(:300,18));
+%scatter(Y(301:,17),Y(301:,18),'r');
+
+N = [];
+F = [];
+
+for i = 1 : length(X)
+    if( strcmp(ret.clss(i),'normal') )
+        N = [N; Y(i,:)];
+    else
+        F = [F; Y(i,:)];
+    end
+end
+
+hold on
+
+a = N(:,16:18);
+b = F(:,16:18);
+scatter3(a(:,1), a(:,2), a(:,3), 4);
+scatter3(b(:,1), b(:,2), b(:,3),4, 'r');
+grid on;
+legend('Normal','Falha 3');
+%scatter(F(301:,17),Y(301:,18),'r');
+
+    
+        
