@@ -1,5 +1,5 @@
 function h=gaussPlot2d(mu, Sigma, color)
-[U, D] = eig(Sigma);
+[U, D] = eig(Sigma);          % é um código generico
 n = 100;
 t = linspace(0, 2*pi, n);
 xy = [cos(t); sin(t)];

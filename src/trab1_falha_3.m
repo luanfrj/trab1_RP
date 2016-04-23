@@ -6,7 +6,7 @@ clc
 % trabalho 1 de reconhecimento de padroes
 
 % le o arquivo csv
-ret = cstrdataread('X_normal.csv',';','normal');
+ret = cstrdataread('X_falha_3.csv',';','normal');
 
 % gera o vetor X
 X = ret.X;
@@ -41,14 +41,21 @@ end
 figure
 hold on
 a = N(:,17:18); % as melhores características são a 17 e 18 para todas as amostras na classe normal
-% b = F(:,17:18);  não ha falhas
+b = F(:,17:18); 
 scatter(a(:,1), a(:,2), 4);
-% scatter(b(:,1), b(:,2), 4, 'r');
+scatter(b(:,1), b(:,2), 4, 'r');
+legend('Normal','Falha 3');
+
+%calcula os outros sigma para fins de plotagem...
+sig_a = cov(N);
+sig_b = cov(F);
+
 grid on;
-gaussPlot2d(mean(a)',lamb(17:18,17:18) , 'b'); % plota a gausiana distancia de mahalanobis para um certo nível de significância.
+gaussPlot2d(mean(a)',sig_a(17:18,17:18) , 'b'); % plota a gausiana distancia de mahalanobis para um certo nível de significância.
+gaussPlot2d(mean(b)',sig_b(17:18,17:18) , 'r');
 title('Pontos das componentes principais');
-legend('Normal');
-print -dpdf pontos2d_normal.pdf 
+
+print -dpdf pontos2d_falha_3.pdf 
 hold off
 
 % aqui começa o cálculo da T2
@@ -65,7 +72,7 @@ figure
 plot(xt2,yt2);
 title('Variação de T2 no tempo');
 grid on;
-print -dpdf T2_tempo_normal.pdf 
+print -dpdf T2_tempo_falha_3.pdf 
 
 %  % t2?
 %  figure
