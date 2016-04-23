@@ -40,17 +40,32 @@ end
 
 figure
 hold on
-a = N(:,17:18);
-% b = F(:,17:18);
-
+a = N(:,17:18); % as melhores características são a 17 e 18 para todas as amostras na classe normal
+% b = F(:,17:18);  não ha falhas
 scatter(a(:,1), a(:,2), 4);
 % scatter(b(:,1), b(:,2), 4, 'r');
 grid on;
-legend('Normal','Falha 3');
-
-gaussPlot2d(mean(a)',lamb(17:18,17:18) , 'b');
-
+gaussPlot2d(mean(a)',lamb(17:18,17:18) , 'b'); % plota a gausiana distancia de mahalanobis para um certo nível de significância.
+title('Pontos das componentes principais');
+legend('Normal');
+print -dpdf -color pontos2d_normal.pdf 
 hold off
+
+% aqui começa o cálculo da T2
+
+xt2 = [];
+yt2 = [];
+
+for i = 1 : length(Y)
+  xt2 = [xt2; i];
+  yt2 = [yt2; Y(i,:) * inv(lamb) * Y(i,:)'];
+end
+
+figure
+plot(xt2,yt2);
+title('Variação de T2 no tempo');
+grid on;
+print -dpdf -color T2_tempo_normal.pdf 
 
 %  % t2?
 %  figure
