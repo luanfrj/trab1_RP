@@ -4,7 +4,9 @@ set ylabel "Variables"
 set grid
 set style data lines
 set yrange [-1:20]
-set key right top outside
+set key outside
+set terminal png size 800, 600 font "Helvetica,20"
+set output "figs/sinal.png"
 #set autoscale y
 
 

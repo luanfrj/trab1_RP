@@ -60,7 +60,9 @@ k = 1;
 while ~feof(f)
 	l = fgetl(f);	% don't call it 'line', since this overwrites the function 'line'
 	%fprintf('Line #%4d = ''%s''\n', k+1, l );
-	cols = strsplit(l,sepchar);
+	%cols = strsplit(l,sepchar);
+    cols = strread(l,'%s','delimiter',sepchar);
+    
 	%cols = strsplit(l,';')
 	for j=1:numfeat
 		%fprintf('Line #%4d j=%d cols(%d)=%f\n', k+1, j, j, str2double(cols(j)) );
